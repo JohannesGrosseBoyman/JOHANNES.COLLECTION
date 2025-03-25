@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "NODE_OPTIONS=--experimental-modules next dev",
+    "build": "NODE_OPTIONS=--experimental-modules next build",
+    "start": "NODE_OPTIONS=--experimental-modules next start",
     "lint": "next lint"
   },
   "dependencies": {

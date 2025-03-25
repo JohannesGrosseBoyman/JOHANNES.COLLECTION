@@ -30,12 +30,99 @@ const ProductList = () => {
           <span className="font-semibold">GHS 195</span>
         </div>
         <div className="text-sm text-gray-500">My description</div>
-        <button className="rounded-2xl ring-1 ring-primary text-primary w-max py-2 px-4 text-xs hover:bg-primary hover:text-white">
+
+        <button className=" rounded-2xl ring-1 ring-primary text-primary w-max py-2 px-4 text-xs hover:bg-primary hover:text-white">
           Add to Cart
         </button>
-        <button className="bg-[#006994] text-white p-4">Test Button</button>
-        <button className="bg-primary text-black p-4 rounded-2xl ring-1  w-max">
-          Test Button
+      </Link>
+      <Link
+        href="/test"
+        className="w-full flex flex-col gap-4 sm:w-[45%] lg:w-[22%] "
+      >
+        <div className="relative w-full h-80">
+          <Image
+            src="/bag_black.jpg"
+            alt=""
+            fill
+            sizes="25vw"
+            className="absolute object-cover rounded-md z-10 hover:opacity-0 transition-opacity easy duration-500"
+          />
+          <Image
+            src="/bag_black02.jpg"
+            alt=""
+            fill
+            sizes="25vw"
+            className="absolute object-cover rounded-md"
+          />
+        </div>
+        <div className="flex justify-between">
+          <span className="font-medium">Product Name</span>
+          <span className="font-semibold">GHS 195</span>
+        </div>
+        <div className="text-sm text-gray-500">My description</div>
+
+        <button className=" rounded-2xl ring-1 ring-primary text-primary w-max py-2 px-4 text-xs hover:bg-primary hover:text-white">
+          Add to Cart
+        </button>
+      </Link>
+      <Link
+        href="/test"
+        className="w-full flex flex-col gap-4 sm:w-[45%] lg:w-[22%] "
+      >
+        <div className="relative w-full h-80">
+          <Image
+            src="/bag_black.jpg"
+            alt=""
+            fill
+            sizes="25vw"
+            className="absolute object-cover rounded-md z-10 hover:opacity-0 transition-opacity easy duration-500"
+          />
+          <Image
+            src="/bag_black02.jpg"
+            alt=""
+            fill
+            sizes="25vw"
+            className="absolute object-cover rounded-md"
+          />
+        </div>
+        <div className="flex justify-between">
+          <span className="font-medium">Product Name</span>
+          <span className="font-semibold">GHS 195</span>
+        </div>
+        <div className="text-sm text-gray-500">My description</div>
+
+        <button className=" rounded-2xl ring-1 ring-primary text-primary w-max py-2 px-4 text-xs hover:bg-primary hover:text-white">
+          Add to Cart
+        </button>
+      </Link>
+      <Link
+        href="/test"
+        className="w-full flex flex-col gap-4 sm:w-[45%] lg:w-[22%] "
+      >
+        <div className="relative w-full h-80">
+          <Image
+            src="/bag_black.jpg"
+            alt=""
+            fill
+            sizes="25vw"
+            className="absolute object-cover rounded-md z-10 hover:opacity-0 transition-opacity easy duration-500"
+          />
+          <Image
+            src="/bag_black02.jpg"
+            alt=""
+            fill
+            sizes="25vw"
+            className="absolute object-cover rounded-md"
+          />
+        </div>
+        <div className="flex justify-between">
+          <span className="font-medium">Product Name</span>
+          <span className="font-semibold">GHS 195</span>
+        </div>
+        <div className="text-sm text-gray-500">My description</div>
+
+        <button className=" rounded-2xl ring-1 ring-primary text-primary w-max py-2 px-4 text-xs hover:bg-primary hover:text-white">
+          Add to Cart
         </button>
       </Link>
     </div>
