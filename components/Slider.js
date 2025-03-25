@@ -66,7 +66,7 @@ const Slider = () => {
                 {slide.title}
               </h1>
               <Link href={slide.url}>
-                <button className="rounded-md bg-black text-white px-4 py-3">
+                <button className="rounded-md bg-primary text-white px-4 py-3">
                   SHOP NOW
                 </button>
               </Link>

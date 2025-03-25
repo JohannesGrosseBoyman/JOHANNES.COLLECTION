@@ -1,9 +1,11 @@
 @import "tailwindcss";
 
 /* Hide scrollbar */
+/* for chrome browser */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+/* for firefox browser */
 .scrollbar-hide {
   scrollbar-width: none;
 }
@@ -16,7 +18,11 @@
 :root {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+}
 
+@theme {
+  --color-secondary: #f3c614;
+  --color-primary: #006994;
 }
 
 @media (prefers-color-scheme: dark) {
