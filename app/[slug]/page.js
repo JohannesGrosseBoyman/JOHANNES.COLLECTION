@@ -3,7 +3,7 @@ import ProductImages from "../../components/ProductImages";
 import CustomizeProduct from '@/components/CustomizeProduct';
 import Add from '@/components/Add';
 
-const SingelPage = () => {
+const SinglePage = () => {
   return (
     <div className="px-2 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative flex flex-col lg:flex-row gap-16">
       {/* Image */}
@@ -43,4 +43,4 @@ const SingelPage = () => {
   );
 };
 
-export default SingelPage;
+export default SinglePage;
