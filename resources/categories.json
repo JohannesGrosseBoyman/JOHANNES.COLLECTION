@@ -1,0 +1,37 @@
+[
+  {
+    "_id": {
+      "$oid": "626a48a8916f633a190f0251"
+    },
+    "name": "All products",
+    "url": "/allproducts03.jpg"
+  },
+  {
+    "_id": {
+      "$oid": "626a48ef916f633a190f0255"
+    },
+    "name": "Bags",
+    "url": "/bags_babesKloset.jpg"
+  },
+  {
+    "_id": {
+      "$oid": "626a4929916f633a190f0258"
+    },
+    "name": "Slippers",
+    "url": "/slippers_gucci.jpg"
+  },
+  {
+    "_id": {
+      "$oid": "626a494c916f633a190f025b"
+    },
+    "name": "Dresses",
+    "url": "/dresses01.jpg"
+  },
+  {
+    "_id": {
+      "$oid": "626a49ce916f633a190f025f"
+    },
+    "name": "Accessoirs",
+    "url": "/accessoiries01.jpg"
+  }
+]

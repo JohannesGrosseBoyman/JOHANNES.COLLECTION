@@ -12,7 +12,7 @@ const slides = [
     img: "/slippers_fendl.jpg",
    // img: "https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=800",
     url: "/",
-    bg: "bg-gradient-to-r from-yellow-50 to-pink-50",
+    bg: "bg-gradient-to-r from-yellow-100 to-pink-200",
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const slides = [
     img: "/bag_yellow.jpg",
     // img: "https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&w=800",
     url: "/",
-    bg: "bg-gradient-to-r from-pink-50 to-blue-50",
+    bg: "bg-gradient-to-r from-pink-100 to-blue-200",
   },
   {
     id: 3,
@@ -30,7 +30,7 @@ const slides = [
     img: "/watch_gold.jpg",
     //img: "https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=800",
     url: "/",
-    bg: "bg-gradient-to-r from-blue-50 to-yellow-50",
+    bg: "bg-gradient-to-r from-blue-100 to-yellow-200",
   },
 ];
 
