@@ -32,7 +32,7 @@ const ProductList = () => {
             className="absolute object-cover rounded-md z-10 hover:opacity-0 transition-opacity easy duration-500"
           />
           <Image
-            src={product.images[1]}
+            src={product.images[1] || product.images[0]}
             alt=""
             fill
             sizes="25vw"

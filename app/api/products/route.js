@@ -13,3 +13,29 @@ export async function GET() {
     return NextResponse.json({ message: "Error fetching products" }, { status: 500 });
   }
 }
+
+export async function POST(req) {
+  await dbConnect();
+
+  try {
+    const body = await req.json(); // Get JSON data from request body
+
+    // Validate required fields
+    const requiredFields = ["name", "images", "price", "colors", "description", "category"];
+    for (let field of requiredFields) {
+      if (!body[field]) {
+        return NextResponse.json({ message: `${field} is required` }, { status: 400 });
+      }
+    }
+
+    // Create and save a new product
+    const newProduct = new Product(body);
+    await newProduct.save();
+
+    return NextResponse.json({ message: "Product added successfully", product: newProduct}, { status: 201 });
+
+  } catch (error) {
+    console.error("Error adding product:", error);
+    return NextResponse.json({ message: "Error adding product" }, { status: 500 });
+  }
+}

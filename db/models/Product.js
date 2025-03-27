@@ -12,7 +12,7 @@ const productSchema = new Schema({
     description: { type: String, required: true },
     shortdesc: { type: String, required: false },
     category: { type: String, required: true },
-    sizes: { type: Array, required: true },
+    sizes: { type: Array, required: false },
 });
 
 const Product = mongoose.models.Product || mongoose.model("Product", productSchema);
