@@ -3,20 +3,19 @@
 import Image from "next/image";
 import React, { useState } from "react";
 
-const images = [
-  { id: 1, url: "/bag_yellow.jpg" },
-  { id: 2, url: "/bag_rose02.jpg" },
-  { id: 3, url: "/bag_black.jpg" },
-];
 
-const ProductImages = () => {
+
+const ProductImages = ({ images }) => {
   const [index, setIndex] = useState(0);
+
+  if (!images || images.length === 0) return null;
+  
 
   return (
     <div>
       <div className="h-[500px] relative">
         <Image
-          src={images[index].url}
+          src={images[index]}
           alt=""
           fill
           sizes="50vw"
@@ -27,13 +26,14 @@ const ProductImages = () => {
         {images.map((img, i) => (
           <div
             className="w-1/4 h-32 relative gap-4 mt-8 cursor-pointer"
-            key={img.id}
+            key={img}
             onClick={() => setIndex(i)}
           >
             <Image
-              src={img.url}
+              src={img}
               alt=""
               fill
+              key={img}
               sizes="30vw"
               className="object-cover rounded-md"
             />
