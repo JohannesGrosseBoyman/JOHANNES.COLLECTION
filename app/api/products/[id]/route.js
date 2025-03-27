@@ -2,6 +2,31 @@ import { NextResponse } from "next/server";
 import dbConnect from "../../../../db/connect";
 import Product from "../../../../db/models/Product";
 
+// fetch a product
+export async function GET(req, { params }) {
+  await dbConnect();
+  try {
+    const { id } = await params;
+    const product = await Product.findById(id);
+
+    if (!product) {
+      return NextResponse.json(
+        { message: "Product not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json({ product }, { status: 200 });
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    return NextResponse.json(
+      { message: "Error fetching product" },
+      { status: 500 }
+    );
+  }
+}
+
+
 // Update a Product (PATCH)
 export async function PATCH(req, { params }) {
   await dbConnect();
