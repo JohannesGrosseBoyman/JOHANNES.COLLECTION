@@ -6,7 +6,7 @@ import useSWR from "swr";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
-const ProductList = () => {
+const ProductList = ({ featuredOnly = false}) => {
 
     const { data, error, isLoading } = useSWR("/api/products", fetcher);
   
@@ -15,9 +15,15 @@ const ProductList = () => {
     if (!data) return <div>No categories found</div>;
 
     console.log(data);
+
+    // Filter products if "featuredOnly" is true
+    const filteredProducts = featuredOnly ? data.filter((product) => product.featured) : data;
+
+    console.log(filteredProducts);
+
   return (
     <div className="mt-12 flex gap-x-8 gap-y-16 justify-between flex-wrap ">
-      {data.map((product) => (
+      {filteredProducts.map((product) => (
         <Link
         href={`/${product._id}`}
         key={product._id}
