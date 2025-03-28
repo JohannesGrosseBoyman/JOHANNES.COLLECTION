@@ -8,18 +8,23 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const PRODUCTS_PER_PAGE = 4;
 
-const ProductList = ({ featuredOnly = false }) => {
+const ProductList = ({ featuredOnly = false, products }) => {
   const [currentPage, setCurrentPage] = useState(0);
-  const { data, error, isLoading } = useSWR("/api/products", fetcher);
 
+  // Fetch all products only if no products are passed as props
+  const { data, error, isLoading } = useSWR(products ? null : "/api/products", fetcher);
+
+  const finalProducts = products || data; // Use passed products or fetched data
+
+  if (!finalProducts) return <div>No products available</div>;
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading products</div>;
-  if (!data) return <div>No products found</div>;
+ 
 
   // Filter products if "featuredOnly" is true
   const filteredProducts = featuredOnly
-    ? data.filter((product) => product.featured)
-    : data;
+    ? finalProducts.filter((product) => product.featured)
+    : finalProducts;
 
   // Check if pagination is needed
   const shouldPaginate = filteredProducts.length > PRODUCTS_PER_PAGE;
@@ -36,7 +41,7 @@ const ProductList = ({ featuredOnly = false }) => {
   const hasNext = filteredProducts.length > startIndex + PRODUCTS_PER_PAGE;
 
   return (
-    <div className="mt-12>">
+    <div className="mt-12 mb-12>">
       <div className="flex gap-x-8 gap-y-16 justify-between flex-wrap ">
         {paginatedProducts.map((product) => (
           <Link
