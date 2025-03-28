@@ -23,6 +23,8 @@
 @theme {
   --color-secondary: #f3c614;
   --color-primary: #006994;
+  --color-primary-light: #127ba7;
+  --color-primary-dark: #0c4f6b;
 }
 
 @media (prefers-color-scheme: dark) {
