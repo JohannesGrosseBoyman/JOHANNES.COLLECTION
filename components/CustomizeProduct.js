@@ -2,7 +2,7 @@
 import React from "react";
 
 const CustomizeProduct = ({ colors, sizes }) => {
-  console.log(sizes);
+  
   return (
     <div className="flex flex-col gap-6">
       <h4 className="font-medium">Choose a Color</h4>
