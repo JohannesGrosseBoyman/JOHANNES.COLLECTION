@@ -50,7 +50,7 @@ const SingleProductPage = () => {
         <p className="text-gray-500">{product.description}</p>
         <div className="h-[2px] bg-gray-100" />
 
-        {discount !== "" ? (
+        {!discount ? (
           <div className="flex items-center gap-4">
             <h2 className="font-medium text-2xl">GHS {product.price}</h2>
           </div>
