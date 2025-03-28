@@ -13,8 +13,8 @@ const ProductList = ({ featuredOnly = false }) => {
   const { data, error, isLoading } = useSWR("/api/products", fetcher);
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading categories</div>;
-  if (!data) return <div>No categories found</div>;
+  if (error) return <div>Error loading products</div>;
+  if (!data) return <div>No products found</div>;
 
   // Filter products if "featuredOnly" is true
   const filteredProducts = featuredOnly
