@@ -12,7 +12,7 @@ export async function GET(request) {
   let products;
 
   try {
-    if (category !== "All products") { // Check if category is provided and not "All products"
+    if (category && category !== "All products") { // Check if category is provided and not "All products"
 
       products = await Product.find({ category: category }) // Match by category name
 
