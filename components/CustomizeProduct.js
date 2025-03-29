@@ -10,10 +10,7 @@ const CustomizeProduct = ({
   setSelectedSize,
 }) => {
 
-  useEffect(() => {
-    console.log("SelectedColor: ", selectedColor);
-    console.log("SelectedSize: ", selectedSize);
-  }, [selectedColor, selectedSize]);
+
 
 
   return (
@@ -24,7 +21,7 @@ const CustomizeProduct = ({
           <li
             key={color}
             onClick={() => {
-              console.log("Color clicked: ", color)
+              
               setSelectedColor(color);
             }}
             className={`w-8 h-8 rounded-full ring-1 ring-gray-300 cursor-pointer relative ${
@@ -49,7 +46,7 @@ const CustomizeProduct = ({
               <li
                 key={size}
                 onClick={() => {
-                  console.log("Size clicked: ", size);
+                  
                   setSelectedSize(size);
                 }}
                 className={`ring-1 ring-primary text-primary rounded-md py-1 px-4 text-sm cursor-pointer ${
