@@ -11,6 +11,9 @@ const SingleProductPage = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     if (!slug) return;
@@ -37,6 +40,24 @@ const SingleProductPage = () => {
   if (!product) return <p>Product not found</p>;
 
   const discount = product.discountedPrice !== "" ? true : false;
+
+  const handleAddToCart = () => {
+    if (!selectedColor || !selectedSize) {
+      alert("Please select a color and size before adding to cart.");
+      return;
+    }
+    const cartItem = {
+      id: product.id,
+      name: product.name,
+      price: discount ? product.discountedPrice : product.price,
+      color: selectedColor,
+      size: selectedSize,
+      quantity,
+      image: product.images[0],
+    };
+    // Dispatch to global sate or store in local storage
+    console.log("Added to cart:", cartItem);
+  };
 
   return (
     <div className="px-2 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative flex flex-col lg:flex-row gap-16">
@@ -66,8 +87,19 @@ const SingleProductPage = () => {
         )}
 
         <div className="h-[2px] bg-gray-100" />
-        <CustomizeProduct colors={product.colors} sizes={product.sizes} />
-        <Add />
+        <CustomizeProduct
+          colors={product.colors}
+          sizes={product.sizes}
+          selectedColor={selectedColor}
+          setSelectedColor={setSelectedColor}
+          selectedSize={selectedSize}
+          setSelectedSize={setSelectedSize}
+        />
+        <Add
+          quantity={quantity}
+          setQuantity={setQuantity}
+          onAddToCart={handleAddToCart}
+        />
         <div className="h-[2px] bg-gray-100" />
       </div>
     </div>
