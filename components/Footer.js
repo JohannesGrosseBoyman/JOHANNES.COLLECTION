@@ -73,7 +73,7 @@ const Footer = () => {
             <input
               type="text"
               placeholder="Email adress"
-              className="p-4 w-3/4"
+              className="p-4 w-3/4 bg-gray-50"
             />
             <button className="w-1/4 bg-primary text-white">JOIN</button>
           </div>
