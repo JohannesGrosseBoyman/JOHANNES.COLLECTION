@@ -26,7 +26,7 @@ const NavIcons = () => {
       {isProfileOpen && (
         <div className="absolute p-4 rounded-md top-12 left-0 bg-white text-sm shadow-[0_3px_10px_rgb(0,0,0,0.2)] z-20">
           <Link href="/">Profile</Link>
-          <div className="mt-2 cursor-pointer" >
+          <div className="mt-2 cursor-pointer">
             {isLoading ? "Logging out" : "Logout"}
           </div>
         </div>
@@ -46,7 +46,7 @@ const NavIcons = () => {
           height={22}
           onClick={() => setIsCartOpen((prev) => !prev)}
         />
-        <div className="absolute -top-4 -right-4 w-6 h-6 bg-bridget rounded-full text-white text-sm flex items-center justify-center">
+        <div className="absolute -top-4 -right-4 w-6 h-6 bg-primary rounded-full text-white text-sm flex items-center justify-center">
           2
         </div>
       </div>
