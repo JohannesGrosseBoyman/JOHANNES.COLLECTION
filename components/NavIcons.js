@@ -1,14 +1,16 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import CartModal from "@/components/CartModal";
+import { useCart } from "@/app/context/CartContext";
 
 const NavIcons = () => {
+  const { cart } = useCart(); // Get the cart items from the context
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showCart, setShowCart] = useState(false);
 
   const router = useRouter();
   const pathname = usePathname();
@@ -44,13 +46,13 @@ const NavIcons = () => {
           alt=""
           width={22}
           height={22}
-          onClick={() => setIsCartOpen((prev) => !prev)}
+          onClick={() => setShowCart((prev) => !prev)}
         />
         <div className="absolute -top-4 -right-4 w-6 h-6 bg-primary rounded-full text-white text-sm flex items-center justify-center">
-          2
+          {cart.length}
         </div>
       </div>
-      {isCartOpen && <CartModal />}
+      {showCart && <CartModal />}
     </div>
   );
 };

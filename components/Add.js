@@ -1,7 +1,11 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
+import { useCart } from "../app/context/CartContext";
 
-const Add = ({ quantity, setQuantity, onAddToCart }) => {
+const Add = ({ product, selectedColor, selectedSize }) => {
+  const [quantity, setQuantity] = useState(1);
+  const { addToCart } = useCart();
+
   // TEMPORARY
   const stock = 4;
 
@@ -12,6 +16,10 @@ const Add = ({ quantity, setQuantity, onAddToCart }) => {
     if (p === "i" && quantity < stock) {
       setQuantity((prev) => prev + 1);
     }
+  };
+
+  const handleAddToCart = () => {
+    addToCart(product, selectedColor, selectedSize, quantity);
   };
 
   return (
@@ -35,13 +43,13 @@ const Add = ({ quantity, setQuantity, onAddToCart }) => {
             </button>
           </div>
           <div className="text-xs">
-            Only <span className="text-orange-400">4 items</span> left!
+            Only <span className="text-orange-400">{stock} items</span> left!
             <br /> {"Don`t"} miss it
           </div>
         </div>
         <button
-          onClick={onAddToCart}
-          className="w-36 text-sm rounded-3xl ring-1 ring-primary text-primary py-2 px-4 hover:bg-primary hover:text-white disabled:cursor-not-allowed disabled:bg-blue-300 disabled:text-white disabled:ring-none"
+          onClick={handleAddToCart}
+          className="w-36 text-sm rounded-3xl ring-1 ring-primary text-primary py-2 px-4 hover:bg-primary hover:text-white "
         >
           Add to Cart
         </button>

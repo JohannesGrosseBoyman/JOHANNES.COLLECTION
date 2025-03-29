@@ -96,9 +96,9 @@ const SingleProductPage = () => {
           setSelectedSize={setSelectedSize}
         />
         <Add
-          quantity={quantity}
-          setQuantity={setQuantity}
-          onAddToCart={handleAddToCart}
+          product={product}
+          selectedColor={selectedColor}
+          selectedSize={selectedSize}
         />
         <div className="h-[2px] bg-gray-100" />
       </div>
