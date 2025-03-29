@@ -1,8 +1,21 @@
 "use client";
 import React from "react";
 
-const CustomizeProduct = ({ colors, sizes }) => {
-  
+const CustomizeProduct = ({
+  colors,
+  sizes,
+  selectedColor,
+  setSelectedColor,
+  selectedSize,
+  setSelectedSize,
+}) => {
+
+  useEffect(() => {
+    console.log("SelectedColor: ", selectedColor);
+    console.log("SelectedSize: ", selectedSize);
+  }, [selectedColor, selectedSize]);
+
+
   return (
     <div className="flex flex-col gap-6">
       <h4 className="font-medium">Choose a Color</h4>
@@ -10,7 +23,13 @@ const CustomizeProduct = ({ colors, sizes }) => {
         {colors.map((color) => (
           <li
             key={color}
-            className="w-8 h-8 rounded-full ring-1 ring-gray-300 cursor-pointer relative"
+            onClick={() => {
+              console.log("Color clicked: ", color)
+              setSelectedColor(color);
+            }}
+            className={`w-8 h-8 rounded-full ring-1 ring-gray-300 cursor-pointer relative ${
+              selectedColor === color ? "ring-4 ring-primary" : ""
+            }`}
             style={{ backgroundColor: color }} // set dynamic background color
           ></li>
         ))}
@@ -29,7 +48,13 @@ const CustomizeProduct = ({ colors, sizes }) => {
             {sizes.map((size) => (
               <li
                 key={size}
-                className="ring-1 ring-primary text-primary rounded-md py-1 px-4 text-sm cursor-pointer"
+                onClick={() => {
+                  console.log("Size clicked: ", size);
+                  setSelectedSize(size);
+                }}
+                className={`ring-1 ring-primary text-primary rounded-md py-1 px-4 text-sm cursor-pointer ${
+                  selectedSize === size ? "text-white bg-primary" : ""
+                }`}
               >
                 {size}
               </li>
