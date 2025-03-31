@@ -69,7 +69,11 @@ const ProductList = ({ featuredOnly = false, products }) => {
             <div className="flex flex-col flex-grow" >
             <div className="flex justify-between">
               <span className="font-medium w-2/3">{product.name}</span>
-              <span className="font-semibold">{`GHS ${product.price}`}</span>
+              {product.discountedPrice > 0 ? (
+                <span className="font-semibold text-primary">{`GHS ${product.discountedPrice}`}</span>) 
+              : (
+                <span className="font-semibold">{`GHS ${product.price}`}</span>
+              )}
             </div>
             </div>
             {/* Ensure a fixed height for description*/}

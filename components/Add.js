@@ -3,9 +3,16 @@ import React, { useState } from "react";
 import { useCart } from "../app/context/CartContext";
 
 const Add = ({ product, selectedColor, selectedSize }) => {
+
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
 
+  if (product.colors[0] === "") {
+    selectedColor = "";
+  }
+  if (product.sizes[0] === "") {
+    selectedSize = "";
+  }
   // TEMPORARY
   const stock = 4;
 
@@ -19,6 +26,14 @@ const Add = ({ product, selectedColor, selectedSize }) => {
   };
 
   const handleAddToCart = () => {
+    if (selectedColor === null )  {
+      alert("Please select a color before adding to cart.");
+      return;
+    } else if (selectedSize === null) {
+      alert("Please select a size before adding to cart.");
+      return;
+    }
+
     addToCart(product, selectedColor, selectedSize, quantity);
   };
 

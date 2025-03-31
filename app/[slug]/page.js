@@ -13,7 +13,7 @@ const SingleProductPage = () => {
   const [error, setError] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
-  const [quantity, setQuantity] = useState(1);
+ 
 
   useEffect(() => {
     if (!slug) return;
@@ -39,25 +39,7 @@ const SingleProductPage = () => {
   if (error) return <p>{error}</p>;
   if (!product) return <p>Product not found</p>;
 
-  const discount = product.discountedPrice !== "" ? true : false;
-
-  const handleAddToCart = () => {
-    if (!selectedColor || !selectedSize) {
-      alert("Please select a color and size before adding to cart.");
-      return;
-    }
-    const cartItem = {
-      id: product.id,
-      name: product.name,
-      price: discount ? product.discountedPrice : product.price,
-      color: selectedColor,
-      size: selectedSize,
-      quantity,
-      image: product.images[0],
-    };
-    // Dispatch to global sate or store in local storage
-    console.log("Added to cart:", cartItem);
-  };
+ const discount = product.discountedPrice !== "" ? true : false;
 
   return (
     <div className="px-2 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative flex flex-col lg:flex-row gap-16">
