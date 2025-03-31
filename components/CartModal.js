@@ -6,6 +6,12 @@ import { useCart } from "../app/context/CartContext";
 const CartModal = () => {
   const { cart, removeFromCart } = useCart(); // Get the cart items from the context
 
+  const subtotal = cart.reduce((total, item) => {
+    const itemPrice = item.discountedPrice || item.price;
+    return total + itemPrice * item.quantity;
+  }
+  , 0);
+
   return (
     <div className="absolute w-max p-4 rounded-md shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white top-12 right-0 flex flex-col gap-6 z-10">
       {cart.length === 0 ? (
@@ -35,7 +41,8 @@ const CartModal = () => {
                   {/* TOP */}
                   <div className="flex justify-between items-center gap-4">
                     <h3 className="font-semibold">{item.name}</h3>
-                    <div className="p-1 bg-gray-100 rounded-sm">
+                    <div className="p-1 bg-gray-100 rounded-sm flex items-center gap-2">
+                      {item.quantity && item.quantity > 1 && <div className="text-xs text-green-500">{item.quantity} x </div> }
                       GHS{" "}
                       {item.discountedPrice ? item.discountedPrice : item.price}
                     </div>
@@ -72,7 +79,7 @@ const CartModal = () => {
           </div>
           <div className="flex justify-between items-center gap-4 text-xl font-semibold mt-4">
             <span className="">Subtotal</span>
-            <span className="">GHS 380</span>
+            <span className="">GHS {subtotal}</span>
           </div>
           <p className="text-gray-500 text-sm mt-2 mb-4">
             Shipping and Taxes calculated at checkout
