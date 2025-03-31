@@ -7,7 +7,7 @@ const productSchema = new Schema({
     images: { type: Array, required: true},
     price: { type: String, required: true },
     discountedPrice: { type: String, required: false },
-    colors: { type: Array, required: true },
+    colors: { type: Array, required: false },
     featured: { type: Boolean, required: false },
     description: { type: String, required: true },
     shortdesc: { type: String, required: false },
