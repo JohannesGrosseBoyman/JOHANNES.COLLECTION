@@ -1,28 +1,50 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
 import { useCart } from "../context/CartContext";
-import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const CheckoutPage = () => {
   const { cart } = useCart();
-  const router = useRouter();
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [provider, setProvider] = useState("MTN"); // Default to MTN
+  const [loading, setLoading] = useState(false);
 
   // Calculate total cost
-  const total = cart.reduce((total, item) => {
+  const total = cart.reduce((sum, item) => {
     const itemPrice = item.discountedPrice ? item.discountedPrice : item.price;
-    return total + item.quantity * itemPrice;
+    return sum + item.quantity * itemPrice;
   }, 0);
 
-  const handlePayment = () => {
+  const handlePayment = async () => {
     if (!phoneNumber) {
-      alert("Please enter your MTN Mobile Money number.");
+      alert("Please enter a valid phone number.");
       return;
     }
 
-    // Here, you would integrate MTN Mobile Money API
-    alert(`Payment request sent to ${phoneNumber}`);
-    router.push("/order-confirmation"); // Redirect after payment
+    setLoading(true);
+    // Call your backend API to initiate payment
+
+    try {
+      const response = await axios.post("/api/expresspay", {
+        phoneNumber,
+        amount: total,
+        provider,
+      });
+
+      if (response.data.url) {
+        window.location.href = response.data.url; // Redirect to payment page
+      } else {
+        alert("Payment initiation failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Payment error:", error);
+      alert(
+        "An error occurred while processing your payment. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -38,8 +60,19 @@ const CheckoutPage = () => {
             <h2 className="text-xl font-medium mb-2">Order Summary</h2>
             {cart.map((item, index) => (
               <div key={index} className="flex justify-between mb-2">
-                <span>{item.name} (x{item.quantity})</span>
-                <span>GHS {(item.discountedPrice || item.price) * item.quantity}</span>
+                <Image
+                  src={item.images[0]}
+                  alt={item.name}
+                  width={72}
+                  height={96}
+                  className="object-cover rounded-md"
+                />
+                <span>
+                  {item.name} (x{item.quantity})
+                </span>
+                <span>
+                  GHS {(item.discountedPrice || item.price) * item.quantity}
+                </span>
               </div>
             ))}
             <div className="flex justify-between font-semibold mt-2">
@@ -50,17 +83,33 @@ const CheckoutPage = () => {
 
           {/* Payment Section */}
           <h2 className="text-xl font-medium mb-2">Payment</h2>
-          <label className="block mb-2 text-gray-700">MTN Mobile Money Number:</label>
+          <label className="block mb-2 text-gray-700">Phone Number:</label>
           <input
             type="text"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
             className="border px-4 py-2 rounded-md w-full mb-4"
-            placeholder="Enter your MTN number"
+            placeholder="Enter your Mobile Money number"
           />
+          <label className="block mb-2 text-gray-700">Select Provider:</label>
+          <select
+            value={provider}
+            onChange={(e) => setProvider(e.target.value)}
+            className="border px-4 py-2 rounded-md w-full mb-4"
+          >
+            <option value="MTN">MTN Mobile Money</option>
+            <option value="VODAFONE">Vodafone Cash</option>
+            <option value="AIRTELTIGO">AirtelTigo Money</option>
+          </select>
 
-          <button className="w-full bg-yellow-500 text-white py-3 rounded-md cursor-pointer hover:bg-yellow-700 transition-colors duration-300 " onClick={handlePayment}>
-            Pay with MTN Mobile Money
+          <button
+            className={`w-full py-3 rounded-md text-white ${
+              loading ? "bg-gray-400" : "bg-blue-600 hover:bg-blue-700"
+            }`}
+            onClick={handlePayment}
+            disabled={loading}
+          >
+            {loading ? "Processing..." : "Pay with Mobile Money"}
           </button>
         </>
       )}
