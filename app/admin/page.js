@@ -1,8 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "../context/AuthContext";
 import AddProductForm from "../../components/AddProductForm";
 
 export default function AdminPage() {
+  const router = useRouter();
+  const { user } = useAuth(); // Get user from context
   const [products, setProducts] = useState([]);
   const [view, setView] = useState("add"); // add, edit, delete
   const [editingProduct, setEditingProduct] = useState(null);
@@ -19,7 +23,19 @@ export default function AdminPage() {
     sizes: "",
   });
 
-  // Feta all products
+  useEffect(() => {
+    if (user === null) return; // Prevent redirect until user state is set
+
+    if (!user) {
+      console.warn("🔍 User not found, redirecting to login...");
+      router.push("/login"); // Redirect to login if not authenticated
+    } else if (user.role !== "admin") {
+      console.warn("🚫 Not an admin, redirecting...");
+      router.push("/"); // Redirect to homepage if not an admin
+    }
+  }, [user, router]);
+
+  // Fetch all products from API
   useEffect(() => {
     async function fetchProducts() {
       const response = await fetch("/api/products");
