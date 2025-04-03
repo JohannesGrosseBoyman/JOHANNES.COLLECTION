@@ -6,57 +6,82 @@ const AuthContext = createContext(null);
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
-
-
   useEffect(() => {
-    // Check if user is logged in (by calling /api/protected)
     const checkUser = async () => {
       const token = localStorage.getItem("token");
       console.log("📥 Retrieved Token (useEffect):", token);
 
-      if (!token) return; // Prevent API call if token is missing
+      if (!token) {
+        setUser(null);
+        return;
+      }
 
       try {
-        
         const res = await fetch("/api/protected", {
           method: "GET",
-          
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,  // ✅ Send token in Authorization header
+            Authorization: `Bearer ${token}`,
           },
         });
+
         if (res.ok) {
           const data = await res.json();
-
-          // ✅ Ensure `id` is extracted correctly
-          if (data.user && data.user._id) {
-            setUser({ ...data.user, id: data.user._id}); // ✅ Ensure `id` is set properly
-          } else {
-            console.error("User data is missing _id: ", data.user)
-            setUser(null);
-          }
+          console.log("✅ User data received on page load:", data);
+          setUser(data.user);
+        } else {
+          console.error("❌ Failed to fetch user:", res.statusText);
+          setUser(null);
         }
-
-
-
       } catch (error) {
-        console.error("Error checking user:", error);
+        console.error("❌ Error checking user:", error);
         setUser(null);
       }
     };
-    checkUser();
-  }, []);  // ✅ Run only once on component mount
 
-  const login = (user, token) => {
-    console.log("🔑 Storing Token:", token);  // Debugging
+    checkUser();
+  }, []);
+
+  const login = async (user, token) => {
+    console.log("🔑 Storing Token:", token);
     localStorage.setItem("token", token); // ✅ Store token correctly
-    setUser({ ...user, id: user._id});
+    setUser(null); // Ensure reset before fetching user data
+
+    // Fetch user details immediately after login
+    try {
+      const res = await fetch("/api/protected", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        console.log("✅ User data received after login:", data);
+        setUser(data.user); // ✅ Set full user data in context
+      } else {
+        console.error("❌ Failed to fetch user after login:", res.statusText);
+        setUser(null);
+      }
+    } catch (error) {
+      console.error("❌ Error fetching user after login:", error);
+      setUser(null);
+    }
   };
 
   const logout = async () => {
-    await fetch("/api/auth/logout", { method: "POST" }); // Remove token
+    console.log("🚪 Logging out...");
+
+    // ✅ Remove token from localStorage
+    localStorage.removeItem("token");
+
+    // ✅ Reset user state
     setUser(null);
+
+    // ✅ Redirect to Login page
+    window.location.href = "/login";
   };
 
   return (

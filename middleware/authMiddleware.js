@@ -30,16 +30,8 @@ export async function authenticateUser(req) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
 
-    // Attach the full user object to the request
-    req.user = {
-      _id: user._id,
-      role: user.role,
-      email: user.email,
-      name: user.name,
-      address: user.address,
-      phone: user.phone,
-    };
-    return null;
+
+    return { user, error: null }; // ✅ Always return user + error object
   } catch (error) {
     console.error("❌ JWT verification error:", error);
     return NextResponse.json({ message: "Invalid token" }, { status: 403 });
