@@ -28,9 +28,18 @@ export function AuthProvider({ children }) {
         });
         if (res.ok) {
           const data = await res.json();
-          console.log("Protected route response:", data);
-          setUser({ id: data.user.userId, role: data.user.role });
+
+          // ✅ Ensure `id` is extracted correctly
+          if (data.user && data.user._id) {
+            setUser({ ...data.user, id: data.user._id}); // ✅ Ensure `id` is set properly
+          } else {
+            console.error("User data is missing _id: ", data.user)
+            setUser(null);
+          }
         }
+
+
+
       } catch (error) {
         console.error("Error checking user:", error);
         setUser(null);
@@ -39,10 +48,10 @@ export function AuthProvider({ children }) {
     checkUser();
   }, []);  // ✅ Run only once on component mount
 
-  const login = (id, role, token) => {
+  const login = (user, token) => {
     console.log("🔑 Storing Token:", token);  // Debugging
     localStorage.setItem("token", token); // ✅ Store token correctly
-    setUser({ id, role });
+    setUser({ ...user, id: user._id});
   };
 
   const logout = async () => {

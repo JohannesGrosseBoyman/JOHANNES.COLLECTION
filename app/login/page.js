@@ -36,7 +36,7 @@ export default function LoginPage() {
     localStorage.setItem("token", data.token); // Save token
     
 
-      login(data.userId, data.role, data.token); // Update auth state
+      login(data.user, data.token); // Update auth state
       router.push("/"); // Redirect to homepage after login
     } catch (err) {
       console.error("⚠️ Login error:", err.message);
