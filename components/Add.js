@@ -1,11 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import { useCart } from "../app/context/CartContext";
+import { useRouter } from "next/navigation";
 
 const Add = ({ product, selectedColor, selectedSize }) => {
 
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
+  const router = useRouter();
 
   if (product.colors[0] === "") {
     selectedColor = "";
@@ -35,7 +37,8 @@ const Add = ({ product, selectedColor, selectedSize }) => {
     }
 
     addToCart(product, selectedColor, selectedSize, quantity);
-  };
+    router.push("/");
+  }
 
   return (
     <div className="flex flex-col gap-4">

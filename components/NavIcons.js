@@ -12,6 +12,7 @@ const NavIcons = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const profileRef = useRef(null);
+  const cartRef = useRef(null);
 
   const router = useRouter();
   const pathname = usePathname();
@@ -20,6 +21,9 @@ const NavIcons = () => {
     function handleClickOutside(event) {
       if (profileRef.current && !profileRef.current.contains(event.target)) {
         setIsProfileOpen(false);
+      }
+      if (cartRef.current && !cartRef.current.contains(event.target)) {
+        setShowCart(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -63,8 +67,13 @@ const NavIcons = () => {
         <div className="absolute -top-4 -right-4 w-6 h-6 bg-primary rounded-full text-white text-sm flex items-center justify-center">
           {cart.length}
         </div>
-      </div>
-      {showCart && <CartModal />}
+      </div  >
+      {showCart && (
+        <div ref={cartRef} className="absolute top-6 right-0 z-20">
+        <CartModal />
+        </div>
+        )}
+       
     </div>
   );
 };
