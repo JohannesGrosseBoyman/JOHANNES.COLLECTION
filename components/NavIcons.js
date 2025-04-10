@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import {  useRouter } from "next/navigation";
 import CartModal from "@/components/CartModal";
 import { useCart } from "@/app/context/CartContext";
 import { useAuth } from "@/app/context/AuthContext";
@@ -18,7 +18,7 @@ const NavIcons = () => {
   const cartRef = useRef(null);
 
   const router = useRouter();
-  const pathname = usePathname();
+  
 
   
 
@@ -72,7 +72,7 @@ const NavIcons = () => {
             ) : (
               <>
               <Link href="/login" className="block mb-2 text-xl">Login</Link>
-              <Link href="/register" className="block mt-2 text-xl text-primary">Register</Link>
+              <Link href="/profile" className="block mt-2 text-xl text-primary">Register</Link>
               </>
               )}
         </div>
